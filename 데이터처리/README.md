@@ -99,3 +99,155 @@ dfArrest.set_index(["Category1",'Category2',"Category3"], inplace = True)
 dfCrime.info()
 
 ```
+
+#### 시각화
+
+```python
+
+maleCrimeDf = dfCrime[["Male","Crime",]]
+maleCrimeDf
+maleCrimeDf.sort_values(
+  by='Crime', ascending=True).plot(kind="barh", logx=True)
+plt.xlabel("남성 강력범죄 수")
+plt.legend(loc='lower right')
+plt.show()
+
+#-- 일어난 범죄 중 남성이 저지른 횟수
+
+# print(maleDF.index)
+label = maleCrimeDf.loc[('강력범죄','살인(기수)' )]
+#-- 강력범죄, 살인(기수)로 분할
+label = label.reset_index()
+labels = label["Category3"].value_counts().index.tolist()
+labels
+male = label["Male"]
+fracs1 =  male.values
+fracs1
+explode = (0.25,0,0,0,0,0)
+
+plt.pie(fracs1,explode = explode,
+        labels = labels, autopct ="%0.0f%%",shadow =True,
+        )
+plt.title("남성 강력범죄(살인) 중 가장 많은 범죄는 살인")
+plt.show()
+
+maleCrimeRatioDf = dfCrime[["CrimeRatioMan",]]
+maleCrimeRatioDf
+maleCrimeRatioDf.sort_values(
+  by='CrimeRatioMan', ascending=True).plot(kind="barh", )
+plt.xlabel("남성 강력범죄 수")
+plt.legend(loc='lower right')
+plt.show()
+
+#-- 일어난 범죄 중 남성이 저지른 횟수
+
+
+# print(maleDF.index)
+label = maleCrimeDf.loc[('강력범죄','살인(기수)' )]
+#-- 강력범죄, 살인(기수)로 분할
+label = label.reset_index()
+labels = label["Category3"].value_counts().index.tolist()
+labels
+male = label["Male"]
+fracs1 =  male.values
+fracs1
+explode = (0.25,0,0,0,0,0)
+
+plt.pie(fracs1,explode = explode,
+        labels = labels, autopct ="%0.0f%%",shadow =True,
+        )
+plt.title("남성 강력범죄(살인) 중 가장 많은 범죄는 살인")
+plt.show()
+
+maleCrimeRatioDf = dfCrime[["CrimeRatioMan",]]
+maleCrimeRatioDf
+maleCrimeRatioDf.sort_values(
+  by='CrimeRatioMan', ascending=True).plot(kind="barh", )
+plt.xlabel("남성 강력범죄 수")
+plt.legend(loc='lower right')
+plt.show()
+
+#-- 일어난 범죄 중 남성이 저지른 횟수
+
+
+# print(maleDF.index)
+label = maleCrimeDf.loc[('강력범죄','살인(미수등)' )]
+#-- 강력범죄, 살인(기수)로 분할
+label = label.reset_index()
+labels = label["Category3"].value_counts().index.tolist()
+labels
+male = label["Male"]
+fracs1 =  male.values
+fracs1
+explode = (0.25,0,0,0)
+
+plt.pie(fracs1,explode = explode,
+        labels = labels, autopct ="%0.0f%%",shadow =True,
+        )
+plt.title("남성 강력범죄(미수) 중 가장 많은 범죄는 살인")
+plt.show()
+
+femaleCrimeDf = dfCrime[["Female","Crime",]]
+# maleDF
+femaleCrimeDf.sort_values(
+  by='Crime', ascending=True).plot(kind="barh", logx=True)
+plt.xlabel("여성 강력범죄 수")
+plt.legend(loc='lower right')
+plt.show()
+#-- 일어난 범죄 중 여성이 저지른 횟수
+
+# print(maleDF.index)
+label = femaleCrimeDf.loc[('강력범죄','살인(기수)' )]
+#-- 강력범죄, 살인(기수)로 분할
+label = label.reset_index()
+labels = label["Category3"].value_counts().index.tolist()
+male = label["Female"]
+fracs1 =  male.values
+explode = (0.25,0,0,0,0,0)
+
+plt.pie(fracs1,explode = explode,
+        labels = labels, autopct ="%0.0f%%",shadow =True,
+        )
+plt.title("여성 강력범죄 중 가장 많은 범죄는 살인")
+plt.show()
+
+# print(maleDF.index)
+label = femaleCrimeDf.loc[('강력범죄','살인(미수등)' )]
+#-- 강력범죄, 살인(기수)로 분할
+label = label.reset_index()
+labels = label["Category3"].value_counts().index.tolist()
+male = label["Female"]
+fracs1 =  male.values
+explode = (0.25,0,0,0)
+
+plt.pie(fracs1,explode = explode,
+        labels = labels, autopct ="%0.0f%%",shadow =True,
+        )
+plt.title("여성 강력범죄(미수) 중 가장 많은 범죄는 살인")
+plt.show()
+
+femaleCrimeRatioDf = dfCrime[["CrimeRatioWomen",]]
+femaleCrimeRatioDf
+femaleCrimeRatioDf.sort_values(
+  by='CrimeRatioWomen', ascending=True).plot(kind="barh", )
+plt.xlabel("여성 강력범죄 수")
+plt.legend(loc='lower right')
+plt.show()
+
+#-- 일어난 범죄 중 여성이 저지른 횟수
+
+Arrest = df1.drop(["Male","Female"], axis = 1)
+Arrest = Arrest.sort_values(by='Category1' ,ascending=False)
+Arrest.set_index(["Category1",'Category2',"Category3"], inplace = True)
+ArrestDf = Arrest[["Arrest","Crime",]]
+# ArrestDf
+
+ArrestDf.sort_values(
+  by='Crime', ascending=True).plot(kind="barh", logx=True,)
+plt.xlabel("범죄 별 검거 현황")
+plt.legend(loc='lower right')
+
+plt.show()
+
+
+```
