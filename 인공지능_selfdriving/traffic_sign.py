@@ -1,32 +1,18 @@
-# 자율주행 인공지능 Tensorflow 이용
+import time
+import os
+import pathlib
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+#import seaborn as sns
+import cv2
+from PIL import Image
 
+import tensorflow as tf
+from tensorflow import keras
 
-# 1.교통 표지판 인식 모델 연습
-
-실습 데이터는 German Traffic Sign Benchmark (GTSRB) 데이터셋으로 2011년 International Joint Conference on Neural Networks (IJCNN) 2011 에 개최된 대회의 데이터셋으로 39209 개의 이미지가 43 개의 클래스에 속함
-폴더에 저장된 이미지와 클래스 라벨을 읽어와 직접 학습, 검증 데이터셋을 구축
-사전 학습된 VGG16 모델을 활용하여 교통 표지판을 분류하는 작업에 활용
-
-### 1. 데이터 로드와 전처리
-
-터미널에서 다음 명령어를 사용하여 데이터를 다운로드
-
-```bash
-wget gtsrb.zip https://www.dropbox.com/s/5uc83j3aky5b9cv/gtsrb.zip
-```
-
-
-교통표지판 폴더를 생성 후 압축 풀기  자신의 작업환경에 맞게 설정  
-
-- 자신의_작업환경/trafficSign/gtsrb 폴더 생성
-
-```bash
-unzip -q ./gtsrb.zip -d ./trafficSign/gtsrb
-```
-
-각 클래스별 정보 확인
-```python
-dir = './gtsrb'
+# 각 클래스별 정보 확인
+dir = './trafficSign/gtsrb'
     
 plt.figure(figsize=(10, 10))
 for i in range (0,43):
@@ -38,10 +24,7 @@ for i in range (0,43):
     img = plt.imread(path)
     plt.imshow(img)
     plt.xlabel(i)
-```
-
-모든 교통 표지판 클래스를 라벨링
-```python
+    
 #dictionary to label all traffic signs class.
 classes = { 0:'Speed limit (20km/h)',
             1:'Speed limit (30km/h)', 
@@ -86,15 +69,7 @@ classes = { 0:'Speed limit (20km/h)',
             40:'Roundabout mandatory', 
             41:'End of no passing', 
             42:'End no passing veh > 3.5 tons' }
-```
 
-### 2.TODOS: 데이터 로드
-
-각 클래스별 폴더에 들어가 image 파일 네임 리스트인 images 생성
-images 를 for 문을 돌면서 각 이미지의 크기를 조정한 후에 image_data 리스트에 첨부하고 클래스 라벨은 image_labels 에 첨부
-image_data 와 image_labels 를 numpy array로 변환
-
-```python
 NUM_CLASSES = 43
 H = 64
 W = 64
@@ -124,21 +99,10 @@ image_data = np.array(image_data)
 image_labels = np.array(image_labels)
 
 print(image_data.shape)
-#-- 이미지데이터 크기 확인
-#-- (39209, 64, 64, 3)
-```
 
-### 3.TODOS: 학습, 검증 데이터셋 생성
-
-np.random.shuffle 을 활용하여 이미지의 인덱스를 골고루 섞어줌
-train_test_split 함수를 활용하여 학습/검증/시험 데이터, 학습/검증/시험험 라벨 분리, 각각 X_train/X_valid/X_test, y_train/y_valid/y_test
-X_train, X_valid 를 255로 나누어 0~1 범위로 변환
-
-
-```python
 from sklearn.model_selection import train_test_split
 
-# 실습 코드 작성 
+# 실습 코드 작성 🡓🡓
 # 데이터셋 셔플
 shuffle_indexes = np.arange(image_data.shape[0])
 np.random.shuffle(shuffle_indexes)
@@ -153,4 +117,3 @@ X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_siz
 X_train = X_train/255.0
 X_valid = X_valid/255.0
 X_test = X_test/255.0
-```
