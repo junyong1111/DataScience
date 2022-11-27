@@ -15,3 +15,12 @@
 #### 그래프
 - 데이터 값 => 정량화 가능한 속성으로 표현한 것
 
+#### XML 데이터를 원하는 값만 추출
+- XML_To_Data.py 파일을 이용
+- 공공데이터 포털에서 원하는 API키 추출
+- key
+    - 공공 데이터 포털 Encoding Key입력
+- url  
+    - Sample OpencAPI를 이용하여 "?" 이전까지의 url 추출 
+- dataPath
+    - 추출한 데이터를 저장할 경로
