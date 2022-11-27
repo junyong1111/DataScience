@@ -117,3 +117,6 @@ X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_siz
 X_train = X_train/255.0
 X_valid = X_valid/255.0
 X_test = X_test/255.0
+
+print("X_train.shape", X_train.shape, "\t X_valid.shape", X_valid.shape, "\t X_test.shape", X_test.shape)
+print("y_train.shape", y_train.shape, "\t\t\t y_valid.shape", y_valid.shape, "\t\t\t y_test.shape", y_test.shape)
