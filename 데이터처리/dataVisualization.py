@@ -1,37 +1,18 @@
-1. 데이터 시각화
-2. 데이터 전처리
-3. 데이터 분석
-
-1. 데이터 시각화
-- 숫자들의 나열보다, 흐름이나 패턴 등의 정보를 보다 쉽게 전달할 수 있다.
-- 읽는 데이터를 -> 보는 데이터로 
-
-## 시각적 속성
-### 데이터 시각화
-- 체계적이고 논리적인 방식
-    - 데이터 값 => 시각적 속성 과정
-    - 그래프(차트)를 만드는 과정
-
-#### 그래프
-- 데이터 값 => 정량화 가능한 속성으로 표현한 것
-
-#### XML 데이터를 원하는 값만 추출
-- XML_To_Data.py 파일을 이용
-- 공공데이터 포털에서 원하는 API키 추출
-- key
-    - 공공 데이터 포털 Encoding Key입력
-- url  
-    - Sample OpencAPI를 이용하여 "?" 이전까지의 url 추출 
-- dataPath
-    - 추출한 데이터를 저장할 경로
-
-
-### 데이터 처리 및 시각화
-
-```python
+import seaborn as sns
 import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+import requests
+from urllib import parse
+from XML_To_Data import ReadDataFromXML
 
-#-- 판다스를 이용하여 데이터 읽기
+
+key =  "IU%2FiwaExUBMui%2FFjciNT%2F4Md3b4RLulJyt6%2FAccAZ4V4EaVsLtIbqTn1V%2FzTBDc46%2BTlA%2B7iSEXYrzTLFrmMKw%3D%3D"
+url =  "https://api.odcloud.kr/api/15064217/v1/uddi:5eb01115-6046-4320-84da-87b41ad58024"
+dataPath = "/content/drive/MyDrive/Software/datasets/Kor_Police_2021_data.xml"
+year = 2021
+dataset = ReadDataFromXML(key,url,dataPath, year)
+
 df = pd.DataFrame(dataset)
 
 #-- 결측 데이터가 잇는 행 제거 열을 제거하고 싶다면 axis =1
@@ -44,20 +25,13 @@ df = df.dropna(axis=0)
 #-- 결측 데이터 확인
 df.isnull().sum()
 
-#-- 데이터 확인
-df.info()
-
-#-- 데이터 별 숫자 타입을 재정의
 df['Male'] = pd.to_numeric(df["Male"])
 df['Female'] = pd.to_numeric(df["Female"])
 df['UnDefine'] = pd.to_numeric(df["UnDefine"])
 df['Crime'] = pd.to_numeric(df["Crime"])
 df['Arrest'] = pd.to_numeric(df["Arrest"])
-#-- 정수형 데이터 변환
-
-
 df.dtypes
-#-- 데이터 타입 확인
+#-- 정수형 데이터 변환
 
 df1 = df.drop(["UnDefine",], axis = 1)
 df1
@@ -72,9 +46,6 @@ df1.corr()
 #-- - 보통 계수가 0.2 이하이면 상관관계가 없거나 무시해도 좋은 수준
 #-- - 0.4 이하는 약한 상관관계
 #-- - 0.4 이상은 강한 상관관계
-
-
-#-- 남여 범죄별 비율과 범죄별 검거현황 조사를 위하여 데이터 분할
 
 dfCrime =  df1.drop(["Arrest"], axis = 1)
 dfCrime = dfCrime.sort_values(by='Category1' ,ascending=False)
@@ -97,5 +68,3 @@ dfArrest.set_index(["Category1",'Category2',"Category3"], inplace = True)
 #-- 범죄별로 정렬
 
 dfCrime.info()
-
-```

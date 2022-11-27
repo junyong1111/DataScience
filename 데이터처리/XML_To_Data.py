@@ -97,8 +97,3 @@ def DataSet(items, year):
       })
   return dataset
 
-key =  "IU%2FiwaExUBMui%2FFjciNT%2F4Md3b4RLulJyt6%2FAccAZ4V4EaVsLtIbqTn1V%2FzTBDc46%2BTlA%2B7iSEXYrzTLFrmMKw%3D%3D"
-url =  "https://api.odcloud.kr/api/15064217/v1/uddi:5eb01115-6046-4320-84da-87b41ad58024"
-dataPath = "/content/drive/MyDrive/Software/datasets/Kor_Police_2021_data.xml"
-year = 2021
-dataset1 = ReadDataFromXML(key,url,dataPath, year)
